@@ -1,4 +1,6 @@
 var scene = null;
+var head, chest, waist, leftshoulder, leftelbow, leftwrist, rightshoulder,rightelbow, rightwrist,
+lefthip, leftknee, leftankle, righthip,rightknee,rightankle;
 
 var createScene = function (canvas, engine) {
     scene = new BABYLON.Scene(engine);
@@ -27,27 +29,27 @@ var createScene = function (canvas, engine) {
 	
     var robot = BABYLON.Mesh.CreateBox("lamont", 0.0001, scene); 
 	
-    var head = {obj: BABYLON.Mesh.CreateBox("head", { width: 0.4, height: 0.4, depth: 0.4 }, scene), parent: null, child: null}
+    head = {obj: BABYLON.Mesh.CreateBox("head", { width: 0.4, height: 0.4, depth: 0.4 }, scene), parent: null, child: null}
     head.obj.parent = robot;
     head.obj.position.y = 0.6;
     head.obj.material = new BABYLON.StandardMaterial("red", scene);
     head.obj.material.diffuseColor = new BABYLON.Color3(0.8, 0.0, 0.0);
 	
-    var chest = {obj: BABYLON.Mesh.CreateBox("chest", { width: 1, height: 1, depth: 0.6 }, scene), parent: null, child: []}
+    chest = {obj: BABYLON.Mesh.CreateBox("chest", { width: 1, height: 1, depth: 0.6 }, scene), parent: null, child: []}
     chest.obj.material = new BABYLON.StandardMaterial("red", scene);
     chest.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.0, 0.8);
     //chest.scaling.y = 3;
     //chest.scaling.x = 2;
     chest.obj.parent = robot;
 	
-	var waist = {obj: BABYLON.Mesh.CreateBox("waist", { width: 1, height: 0.4, depth: 0.6 }, scene), parent: null, child: null}
+	waist = {obj: BABYLON.Mesh.CreateBox("waist", { width: 1, height: 0.4, depth: 0.6 }, scene), parent: null, child: null}
     waist.obj.parent = robot;
     waist.obj.position.y = -0.7;
 	waist.obj.material = new BABYLON.StandardMaterial("red", scene);
 	waist.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
 	
 	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var leftshoulder = {obj: BABYLON.Mesh.CreateBox("leftshoulder",opts, scene), parent: null, child: []}
+    leftshoulder = {obj: BABYLON.Mesh.CreateBox("leftshoulder",opts, scene), parent: null, child: []}
     leftshoulder.obj.parent = chest.obj;
 	chest.child.push(leftshoulder);
     leftshoulder.obj.position.x = -0.65;
@@ -57,7 +59,7 @@ var createScene = function (canvas, engine) {
     leftshoulder.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
     
     opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var leftelbow = {obj: BABYLON.Mesh.CreateBox("leftelbow",opts, scene), parent: null, child: []}
+    leftelbow = {obj: BABYLON.Mesh.CreateBox("leftelbow",opts, scene), parent: null, child: []}
     leftelbow.obj.parent = leftshoulder.obj;
     leftelbow.obj.position.y = -0.45;
     //elbow.scaling.y = 0.5;
@@ -65,7 +67,7 @@ var createScene = function (canvas, engine) {
     leftelbow.obj.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
     
     opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var leftwrist = {obj: BABYLON.Mesh.CreateBox("leftwrist",opts, scene), parent: null, child: []}
+    leftwrist = {obj: BABYLON.Mesh.CreateBox("leftwrist",opts, scene), parent: null, child: []}
     leftwrist.obj.parent = leftelbow.obj;
     leftwrist.obj.position.y = -0.35;
     //wrist.scaling.y = 0.75;
@@ -74,7 +76,7 @@ var createScene = function (canvas, engine) {
 	
 	
 	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var rightshoulder = {obj: BABYLON.Mesh.CreateBox("rightshoulder",opts, scene), parent: null, child: []}
+    rightshoulder = {obj: BABYLON.Mesh.CreateBox("rightshoulder",opts, scene), parent: null, child: []}
     rightshoulder.obj.parent = chest.obj;
     rightshoulder.obj.position.x = 0.65;
     rightshoulder.obj.position.y = 0.25;
@@ -83,7 +85,7 @@ var createScene = function (canvas, engine) {
     rightshoulder.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
     
     opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var rightelbow = {obj: BABYLON.Mesh.CreateBox("rightelbow",opts, scene), parent: null, child: []}
+    rightelbow = {obj: BABYLON.Mesh.CreateBox("rightelbow",opts, scene), parent: null, child: []}
     rightelbow.obj.parent = rightshoulder.obj;
     rightelbow.obj.position.y = -0.45;
     //elbow.scaling.y = 0.5;
@@ -91,7 +93,7 @@ var createScene = function (canvas, engine) {
     rightelbow.obj.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
     
     opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var rightwrist = {obj: BABYLON.Mesh.CreateBox("rightwrist",opts, scene), parent: null, child: []}
+    rightwrist = {obj: BABYLON.Mesh.CreateBox("rightwrist",opts, scene), parent: null, child: []}
     rightwrist.obj.parent = rightelbow.obj;
     rightwrist.obj.position.y = -0.35;
     //wrist.scaling.y = 0.75;
@@ -100,7 +102,7 @@ var createScene = function (canvas, engine) {
 	
 	
 	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var lefthip = {obj: BABYLON.Mesh.CreateBox("lefthip",opts, scene), parent: null, child: []}
+    lefthip = {obj: BABYLON.Mesh.CreateBox("lefthip",opts, scene), parent: null, child: []}
     lefthip.obj.parent = waist.obj;
     lefthip.obj.position.x = -0.35;
     lefthip.obj.position.y = -0.4;
@@ -109,7 +111,7 @@ var createScene = function (canvas, engine) {
     lefthip.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
     
     opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var leftknee = {obj: BABYLON.Mesh.CreateBox("leftknee",opts, scene), parent: null, child: []}
+    leftknee = {obj: BABYLON.Mesh.CreateBox("leftknee",opts, scene), parent: null, child: []}
     leftknee.obj.parent = lefthip.obj;
     leftknee.obj.position.y = -0.45;
     //elbow.scaling.y = 0.5;
@@ -117,7 +119,7 @@ var createScene = function (canvas, engine) {
     leftknee.obj.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
     
     opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var leftankle = {obj: BABYLON.Mesh.CreateBox("leftankle",opts, scene), parent: null, child: []}
+    leftankle = {obj: BABYLON.Mesh.CreateBox("leftankle",opts, scene), parent: null, child: []}
     leftankle.obj.parent = leftknee.obj;
     leftankle.obj.position.y = -0.35;
     //wrist.scaling.y = 0.75;
@@ -126,7 +128,7 @@ var createScene = function (canvas, engine) {
 	
 	
 	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var righthip = {obj: BABYLON.Mesh.CreateBox("righthip",opts, scene), parent: null, child: []}
+    righthip = {obj: BABYLON.Mesh.CreateBox("righthip",opts, scene), parent: null, child: []}
     righthip.obj.parent = waist.obj;
     righthip.obj.position.x = 0.35;
     righthip.obj.position.y = -0.4;
@@ -135,7 +137,7 @@ var createScene = function (canvas, engine) {
     righthip.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
     
     opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var rightknee = {obj: BABYLON.Mesh.CreateBox("rightknee",opts, scene), parent: null, child: []}
+    rightknee = {obj: BABYLON.Mesh.CreateBox("rightknee",opts, scene), parent: null, child: []}
     rightknee.obj.parent = righthip.obj;
     rightknee.obj.position.y = -0.45;
     //elbow.scaling.y = 0.5;
@@ -143,15 +145,14 @@ var createScene = function (canvas, engine) {
     rightknee.obj.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
     
     opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var rightankle = {obj: BABYLON.Mesh.CreateBox("rightankle",opts, scene), parent: null, child: []}
+    rightankle = {obj: BABYLON.Mesh.CreateBox("rightankle",opts, scene), parent: null, child: []}
     rightankle.obj.parent = rightknee.obj;
     rightankle.obj.position.y = -0.35;
     //wrist.scaling.y = 0.75;
     rightankle.obj.material = new BABYLON.StandardMaterial("anklecolor", scene);
     rightankle.obj.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
     
-	rotatexp45(rightshoulder);
-	console.log(chest);
+	//console.log(chest);
     return scene;
 }
 
@@ -410,11 +411,13 @@ function degToRad(degrees) {
 function main() {
     var canvas = document.getElementById("renderCanvas");
     var engine = new BABYLON.Engine(canvas, true);
-
+	
     engine.runRenderLoop(function () {
         scene.render();
     });
     var scene = new createScene(canvas, engine);
+	
+	rotatexn45(leftshoulder);
     
     // Resize
     window.addEventListener("resize", function () {
