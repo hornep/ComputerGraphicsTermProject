@@ -25,9 +25,6 @@ var createScene = function (canvas, engine) {
         
     */
 	
-	var materialSphere3 = new BABYLON.StandardMaterial("texture3", scene);
-    materialSphere3.diffuseTexture = new BABYLON.Texture("tree.png", scene);
-	
     var robot = BABYLON.Mesh.CreateBox("lamont", 0.0001, scene); 
     var head = BABYLON.Mesh.CreateBox("head", { width: 0.4, height: 0.4, depth: 0.4 }, scene);
     head.parent = robot;
@@ -40,76 +37,358 @@ var createScene = function (canvas, engine) {
     //chest.scaling.y = 3;
     //chest.scaling.x = 2;
     chest.parent = robot;
-    createArm("right",  chest);
-    createArm("left",  chest);
 	
-    var waist = BABYLON.Mesh.CreateBox("waist", { width: 1, height: 0.4, depth: 0.6 }, scene);
+	var waist = BABYLON.Mesh.CreateBox("waist", { width: 1, height: 0.4, depth: 0.6 }, scene);
     waist.parent = robot;
     waist.position.y = -0.7;
-    waist.material = materialSphere3;
-    //waist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
-
-    createLeg("right", waist);
-    createLeg("left", waist);
+	waist.material = new BABYLON.StandardMaterial("red", scene);
+	waist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
+	
+	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
+    var leftshoulder = BABYLON.Mesh.CreateBox("leftshoulder",opts, scene);
+    leftshoulder.parent = chest;
+    leftshoulder.position.x = -0.65;
+    leftshoulder.position.y = 0.25;
+    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
+    leftshoulder.material = new BABYLON.StandardMaterial("shouldercolor", scene);
+    leftshoulder.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
     
+    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
+    var leftelbow = BABYLON.Mesh.CreateBox("leftelbow", opts, scene);
+    leftelbow.parent = leftshoulder;
+    leftelbow.position.y = -0.45;
+    //elbow.scaling.y = 0.5;
+    leftelbow.material = new BABYLON.StandardMaterial("elbowcolor", scene);
+    leftelbow.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
+    
+    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
+    var leftwrist = BABYLON.Mesh.CreateBox("leftwrist", opts, scene);
+    leftwrist.parent = leftelbow;
+    leftwrist.position.y = -0.35;
+    //wrist.scaling.y = 0.75;
+    leftwrist.material = new BABYLON.StandardMaterial("elbowcolor", scene);
+    leftwrist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
+	
+	
+	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
+    var rightshoulder = BABYLON.Mesh.CreateBox("rightshoulder",opts, scene);
+    rightshoulder.parent = chest;
+    rightshoulder.position.x = 0.65;
+    rightshoulder.position.y = 0.25;
+    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
+    rightshoulder.material = new BABYLON.StandardMaterial("shouldercolor", scene);
+    rightshoulder.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
+    
+    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
+    var rightelbow = BABYLON.Mesh.CreateBox("rightelbow", opts, scene);
+    rightelbow.parent = rightshoulder;
+    rightelbow.position.y = -0.45;
+    //elbow.scaling.y = 0.5;
+    rightelbow.material = new BABYLON.StandardMaterial("elbowcolor", scene);
+    rightelbow.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
+    
+    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
+    var rightwrist = BABYLON.Mesh.CreateBox("rightwrist", opts, scene);
+    rightwrist.parent = rightelbow;
+    rightwrist.position.y = -0.35;
+    //wrist.scaling.y = 0.75;
+    rightwrist.material = new BABYLON.StandardMaterial("elbowcolor", scene);
+    rightwrist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
+	
+	
+	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
+    var lefthip = BABYLON.Mesh.CreateBox("lefthip",opts, scene);
+    lefthip.parent = waist;
+    lefthip.position.x = -0.35;
+    lefthip.position.y = -0.4;
+    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
+    lefthip.material = new BABYLON.StandardMaterial("hipcolor", scene);
+    lefthip.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
+    
+    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
+    var leftknee = BABYLON.Mesh.CreateBox("leftknee", opts, scene);
+    leftknee.parent = lefthip;
+    leftknee.position.y = -0.45;
+    //elbow.scaling.y = 0.5;
+    leftknee.material = new BABYLON.StandardMaterial("kneecolor", scene);
+    leftknee.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
+    
+    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
+    var leftankle = BABYLON.Mesh.CreateBox("leftankle", opts, scene);
+    leftankle.parent = leftknee;
+    leftankle.position.y = -0.35;
+    //wrist.scaling.y = 0.75;
+    leftankle.material = new BABYLON.StandardMaterial("anklecolor", scene);
+    leftankle.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
+	
+	
+	var opts = { width: 0.25, height: 0.5, depth: 0.25 };
+    var righthip = BABYLON.Mesh.CreateBox("righthip",opts, scene);
+    righthip.parent = waist;
+    righthip.position.x = 0.35;
+    righthip.position.y = -0.4;
+    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
+    righthip.material = new BABYLON.StandardMaterial("hipcolor", scene);
+    righthip.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
+    
+    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
+    var rightknee = BABYLON.Mesh.CreateBox("rightknee", opts, scene);
+    rightknee.parent = righthip;
+    rightknee.position.y = -0.45;
+    //elbow.scaling.y = 0.5;
+    rightknee.material = new BABYLON.StandardMaterial("kneecolor", scene);
+    rightknee.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
+    
+    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
+    var rightankle = BABYLON.Mesh.CreateBox("rightankle", opts, scene);
+    rightankle.parent = rightknee;
+    rightankle.position.y = -0.35;
+    //wrist.scaling.y = 0.75;
+    rightankle.material = new BABYLON.StandardMaterial("anklecolor", scene);
+    rightankle.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
+    
+	rotatexp45(rightshoulder);
+	rotatexp45(rightelbow);
+	//setTimeout(rotatexp45(rightshoulder),5000);
+
+	
     return scene;
 }
 
-function createArm(side, parent) {
-    var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var shoulder = BABYLON.Mesh.CreateBox(side + "shoulder",opts, scene);
-    shoulder.parent = parent;
-    shoulder.position.x = (side == "right"?0.65:-0.65);
-    shoulder.position.y = 0.25;
-    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
-    shoulder.material = new BABYLON.StandardMaterial("shouldercolor", scene);
-    shoulder.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
-    
-    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var elbow = BABYLON.Mesh.CreateBox(side + "elbow", opts, scene);
-    elbow.parent = shoulder;
-    elbow.position.y = -0.45;
-    //elbow.scaling.y = 0.5;
-    elbow.material = new BABYLON.StandardMaterial("elbowcolor", scene);
-    elbow.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
-    
-    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var wrist = BABYLON.Mesh.CreateBox(side + "wrist", opts, scene);
-    wrist.parent = elbow;
-    wrist.position.y = -0.35;
-    //wrist.scaling.y = 0.75;
-    wrist.material = new BABYLON.StandardMaterial("elbowcolor", scene);
-    wrist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
-    
+function rotatexp45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: .2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
 }
 
-function createLeg(side, parent) {
-    var opts = { width: 0.25, height: 0.5, depth: 0.25 };
-    var shoulder = BABYLON.Mesh.CreateBox(side + "hip",opts, scene);
-    shoulder.parent = parent;
-    shoulder.position.x = (side == "right"?0.35:-0.35);
-    shoulder.position.y = -0.4;
-    //shoulder.scaling.x = 0.25;shoulder.scaling.z = 0.5;shoulder.scaling.y = 0.5;
-    shoulder.material = new BABYLON.StandardMaterial("hipcolor", scene);
-    shoulder.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.8);
-    
-    opts.depth = 0.23;opts.height = 0.4;opts.width = 0.23;
-    var elbow = BABYLON.Mesh.CreateBox(side + "knee", opts, scene);
-    elbow.parent = shoulder;
-    elbow.position.y = -0.45;
-    //elbow.scaling.y = 0.5;
-    elbow.material = new BABYLON.StandardMaterial("kneecolor", scene);
-    elbow.material.diffuseColor = new BABYLON.Color3(0.8, 0.8, 0.0);
-    
-    opts.depth = 0.2;opts.height = 0.3;opts.width = 0.2;
-    var wrist = BABYLON.Mesh.CreateBox(side + "ankle", opts, scene);
-    wrist.parent = elbow;
-    wrist.position.y = -0.35;
-    //wrist.scaling.y = 0.75;
-    wrist.material = new BABYLON.StandardMaterial("anklecolor", scene);
-    wrist.material.diffuseColor = new BABYLON.Color3(0.0, 0.8, 0.0);
-    
+function rotateyp45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: .2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
 }
+
+function rotatezp45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.z", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: .2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
+}
+
+function rotatexn45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: -.2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: -1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
+}
+
+function rotateyn45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.y", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: -.2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: -1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
+}
+
+function rotatezn45(bodypart){
+		//Create a scaling animation at 30 FPS
+    var animation1 = new BABYLON.Animation("Animation1", "rotation.z", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    //Here we have chosen a loop mode, but you can change to :
+    //  Use previous values and increment it (BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE)
+    //  Restart from initial value (BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE)
+    //  Keep the final value (BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT)
+
+    // Animation keys
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+    keys.push({
+        frame: 20,
+        value: -.2
+    });
+
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: -1
+    });
+	
+    //Adding keys to the animation object
+    animation1.setKeys(keys);
+
+    //Then add the animation object to box1
+    bodypart.animations.push(animation1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+    scene.beginAnimation(bodypart, 0, 100, false);
+}
+
 
 var rotx = 1, roty = 1, rotz = 1;
 
