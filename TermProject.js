@@ -142,4 +142,3 @@ function main() {
         engine.resize();
     });
 }
-
