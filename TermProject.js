@@ -390,6 +390,205 @@ function rotatezn45(bodypart){
     scene.beginAnimation(bodypart.obj, 0, 100, false);
 }
 
+function swingfwdloop(obj, value){
+
+	var side1 = new BABYLON.Animation("side1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+	keys.push({
+        frame: 25,
+        value: value
+    });
+	
+	keys.push({
+        frame: 50,
+        value: 0
+    });
+	
+	keys.push({
+        frame: 75,
+        value: -value
+    });
+	
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 0
+    });
+	
+	
+    //Adding keys to the animation object
+    side1.setKeys(keys);
+
+    //Then add the animation object to box1
+    obj.obj.animations.push(side1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+ 	keepgoing(obj, 100);
+}
+
+function swingbwdloop(obj, value){
+
+	var side1 = new BABYLON.Animation("side1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+	keys.push({
+        frame: 25,
+        value: -value
+    });
+	
+	keys.push({
+        frame: 50,
+        value: 0
+    });
+	
+	keys.push({
+        frame: 75,
+        value: value
+    });
+	
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 0
+    });
+	
+	
+    //Adding keys to the animation object
+    side1.setKeys(keys);
+
+    //Then add the animation object to box1
+    obj.obj.animations.push(side1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+ 	keepgoing(obj, 100);
+}
+
+function swingfwd(obj, value){
+
+	var side1 = new BABYLON.Animation("side1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+	keys.push({
+        frame: 25,
+        value: value
+    });
+	
+	keys.push({
+        frame: 50,
+        value: 0
+    });
+	
+	keys.push({
+        frame: 75,
+        value: -value
+    });
+	
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 0
+    });
+	
+	
+    //Adding keys to the animation object
+    side1.setKeys(keys);
+
+    //Then add the animation object to box1
+    obj.obj.animations.push(side1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+ 	once(obj, 100);
+}
+
+function swingbwd(obj, value){
+
+	var side1 = new BABYLON.Animation("side1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+    var keys = [];
+    //At the animation key 0, the value of scaling is "1"
+    keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    //At the animation key 20, the value of scaling is "0.2"
+	keys.push({
+        frame: 25,
+        value: -value
+    });
+	
+	keys.push({
+        frame: 50,
+        value: 0
+    });
+	
+	keys.push({
+        frame: 75,
+        value: value
+    });
+	
+    //At the animation key 100, the value of scaling is "1"
+    keys.push({
+        frame: 100,
+        value: 0
+    });
+	
+	
+    //Adding keys to the animation object
+    side1.setKeys(keys);
+
+    //Then add the animation object to box1
+    obj.obj.animations.push(side1);
+
+    //Finally, launch animations on box1, from key 0 to key 100 with loop activated
+ 	once(obj, 100);
+}
+
+function keepgoing(obj, numframes){
+	scene.beginAnimation(obj.obj, 0, numframes, true);
+}
+
+function once(obj, numframes){
+	scene.beginAnimation(obj.obj, 0, numframes, false)
+}
+
+function running(){
+	rotatexp45(leftelbow);
+	rotatexp45(rightelbow);
+	rotatexn45(leftknee);
+	rotatexn45(rightknee);
+	
+	swingfwdloop(leftshoulder, 1);
+	swingfwdloop(lefthip, 1);
+	swingbwdloop(rightshoulder, 1);
+	swingbwdloop(righthip, 1);
+	swingbwdloop(rightknee, .25);
+
+	swingfwdloop(leftknee, .25);
+
+}
 
 var rotx = 1, roty = 1, rotz = 1;
 
@@ -417,7 +616,7 @@ function main() {
     });
     var scene = new createScene(canvas, engine);
 	
-	rotatexn45(leftshoulder);
+	running();
     
     // Resize
     window.addEventListener("resize", function () {
