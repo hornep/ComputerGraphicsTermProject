@@ -3,6 +3,8 @@ var robot, head, chest, waist, leftshoulder, leftelbow, leftwrist, rightshoulder
 lefthip, leftknee, leftankle, righthip,rightknee,rightankle;
 
 var bodyparts = [];
+var temp = [];
+var stopflag = false;
 
 var createScene = function (canvas, engine) {
     scene = new BABYLON.Scene(engine);
@@ -211,7 +213,8 @@ function rotatexp45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function rotateyp45(bodypart){
@@ -250,7 +253,8 @@ function rotateyp45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function rotatezp45(bodypart){
@@ -289,7 +293,8 @@ function rotatezp45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function rotatexn45(bodypart){
@@ -328,7 +333,8 @@ function rotatexn45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function rotateyn45(bodypart){
@@ -367,7 +373,8 @@ function rotateyn45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function rotatezn45(bodypart){
@@ -406,7 +413,8 @@ function rotatezn45(bodypart){
     bodypart.obj.animations.push(animation1);
 
     //Finally, launch animations on box1, from key 0 to key 100 with loop activated
-    scene.beginAnimation(bodypart.obj, 0, 100, false);
+    //scene.beginAnimation(bodypart.obj, 0, 100, false);
+	once(bodypart, 100);
 }
 
 function swingfwdloop(obj, value){
@@ -586,11 +594,11 @@ function swingbwd(obj, value){
 }
 
 function keepgoing(obj, numframes){
-	scene.beginAnimation(obj.obj, 0, numframes, true);
+	temp.push(scene.beginAnimation(obj.obj, 0, numframes, true));
 }
 
 function once(obj, numframes){
-	scene.beginAnimation(obj.obj, 0, numframes, false)
+	temp.push(scene.beginAnimation(obj.obj, 0, numframes, false));
 }
 
 function runningfwd(){
@@ -611,20 +619,21 @@ function runningfwd(){
 
 function stopanimation(){
 	
-	for(var i = 0; i < bodyparts.length; i++){
-		
-		var animation1 = new BABYLON.Animation("Animation1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-                                                                    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-																	
-		var keys = [];
-		//At the animation key 0, the value of scaling is "1"
-		keys.push({
-			frame: 0,
-			value: 0
-		});
-		animation1.setKeys(keys);
-		bodyparts[i].obj.animations.push(animation1);
+	resetA();
+	
+}
 
+function resetA(){
+	for(var i = 0; i < temp.length; i++){
+
+		temp[i].reset();
+	}
+}
+
+function stopA(){
+	for(var i = 0; i < temp.length; i++){
+
+		temp[i].stop();
 	}
 }
 
@@ -645,6 +654,15 @@ function degToRad(degrees) {
     return degrees * Math.PI / 180;
 }
 
+function test(){		
+	if(stopflag){
+		for(var i = 0; i < temp.length; i++){
+			resetA();
+		}
+		stopflag = false;
+	}
+}		
+
 function main() {
     var canvas = document.getElementById("renderCanvas");
     var engine = new BABYLON.Engine(canvas, true);
@@ -653,6 +671,8 @@ function main() {
         scene.render();
     });
     var scene = new createScene(canvas, engine);
+	
+	setInterval(test, 1000);
 		    
     // Resize
     window.addEventListener("resize", function () {

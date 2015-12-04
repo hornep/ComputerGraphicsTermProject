@@ -64,17 +64,18 @@
 		<script>
 							
 		var w = false, a = false, s = false, d = false;
-		//var fwd = false, bwd = false, right = false, left = false;
+		var fwd = false, bwd = false, right = false, left = false;
 		var keycode;
+
+
 		onkeypress = function() {movement()};
-		onkeyup = function() {stop()};
-		
+		onkeyup = function() {stop()}
 		
 
 		function movement() {
 		
 			keycode = event.keyCode;
-		
+			//determine which key was pressed
 			if(keycode == 119){
 				w = true;
 			}
@@ -88,9 +89,9 @@
 				d = true;
 			}
 			
+			//if key is pressed move in that direction
 			if(w){
-				//robot.obj.position.x += .1;
-				runningfwd();
+				robot.obj.position.x += .1;
 			}
 			if(s){
 				robot.obj.position.x -= .1;
@@ -98,19 +99,36 @@
 			if(a){
 				robot.obj.position.z += .1;
 			}
-			if(d == 1){
+			if(d){
 				robot.obj.position.z -= .1;
 			}
-			console.log(keycode,w,a,s,d);
+			
+			if(w && !fwd){
+				runningfwd();
+				fwd = true;
+			}
+			if(s){
+
+			}
+			if(a){
+
+			}
+			if(d){
+
+			}
+			
+			//console.log(keycode,w,a,s,d);
 		}
 			
 		function stop(){
 		
 			keycode = event.keyCode;
-		
+			
 			if(keycode == 87){
 				w = false;
 				stopanimation();
+				fwd = false;
+				
 			}
 			if(keycode == 83){
 				s = false;
@@ -122,9 +140,10 @@
 				d = false;
 			}
 			
-			console.log(keycode,w,a,s,d);
+			//console.log(keycode,w,a,s,d);
+
 		}
-			
+		
 			</script>
                 </td>
             </tr>
