@@ -177,6 +177,7 @@ var createScene = function (canvas, engine) {
     return scene;
 }
 
+//animations
 function rotatexp45(bodypart){
 		//Create a scaling animation at 30 FPS
     var animation1 = new BABYLON.Animation("Animation1", "rotation.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
